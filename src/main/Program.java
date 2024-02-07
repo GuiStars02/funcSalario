@@ -23,9 +23,11 @@ public class Program {
 				System.out.print("Id already taken. Try again: ");
 				id = sc.nextInt();
 			}
+			
 			System.out.print("Name: ");
 			sc.nextLine();
 			String name = sc.nextLine();
+			
 			System.out.print("Salary: ");
 			double salary = sc.nextDouble();
 			System.out.println();
@@ -34,23 +36,38 @@ public class Program {
 			list.add(lista);
 		}
 		
-		System.out.print("Enter the employee id that will have salary increase :");
-		int findId = sc.nextInt();
-		Employee emp = list.stream().filter(x -> x.getId() == findId).findFirst().orElse(null);
+		// Aumento de sálario
 		
-		if (emp == null) {
-			System.out.println("This id does not exist!!");
-		}
-		else {
-			System.out.print("Enter the percentage: ");
-			double percent = sc.nextDouble();
-			emp.IncreaseSalary(percent);
-		}
-	
-		System.out.println("\nList of Employees: ");
+		char question;
+		do{
+			System.out.print("Enter the employee id that will have salary increase: ");
+			int findId = sc.nextInt();
+			Employee emp = list.stream().filter(x -> x.getId() == findId).findFirst().orElse(null);
+			
+			if (emp == null) {
+				System.out.println("This id does not exist!!");
+			}
+			else {
+				System.out.print("Enter the percentage: ");
+				double percent = sc.nextDouble();
+				emp.IncreaseSalary(percent);
+			}
+			
+			System.out.println();
+			for ( Employee x : list) {
+				System.out.println(x);
+			}
+			
+			System.out.println("\nDo you want to continue increasing your employees' salary? [y]es");
+			question = sc.next().charAt(0);
+			
+		} while (question == 'y');
+		
+		System.out.println();
 		for ( Employee x : list) {
 			System.out.println(x);
 		}
+		System.out.println("Ótimo trabalho!");
 		
 		sc.close();
 	}
